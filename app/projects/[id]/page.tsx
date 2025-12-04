@@ -138,7 +138,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
           <div className="flex justify-center md:justify-end">
             <div className="relative w-48 h-48 md:w-72 md:h-72 rounded-full overflow-hidden border-4 border-teal-500/20 shadow-2xl">
               <Image
-                src="/profile.jpg"
+                src="/profile.JPG"
                 alt={profile.name}
                 fill
                 className="object-cover"
