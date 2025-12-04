@@ -28,19 +28,15 @@ export const profile = {
     },
     {
       name: "Sophos Certified Engineer",
-      badge: "/sophos-certified-engineer.png"
+      badge: "/Sophos-Logo.jpg"
     },
     {
       name: "Certified ESET Inspect Optimization Specialist",
-      badge: "/certified-eset-inspect-optimization-specialist.jpeg"
+      badge: "/ESET-Logo.jpg"
     },
     {
       name: "Certified ESET Managed Cloud Security Specialist v2",
-      badge: "/certified-eset-managed-cloud-security-specialist-v2.png"
-    },
-    {
-      name: "Certified ESET Windows Server Security Specialist v2",
-      badge: "/certified-eset-windows-server-security-specialist-v2.png"
+      badge: "/ESET-Logo.jpg"
     },
     {
       name: "Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate",
