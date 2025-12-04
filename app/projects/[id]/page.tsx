@@ -1,193 +1,84 @@
-'use client';
-
 import Link from 'next/link';
-import Image from 'next/image';
+import { projects } from '../../data'; // Imports data from app/data.ts
+import { ArrowLeft, User, Shield, CheckCircle } from 'lucide-react';
 import { notFound } from 'next/navigation';
-import { useState } from 'react';
-import { profile, projects } from '../../data';
-import {
-  ExternalLink,
-  ChevronDown,
-  Mail,
-  Phone,
-  Shield,
-  CheckCircle,
-} from 'lucide-react';
 
-// Simple contact dropdown reused from the home page
-function ContactDropdown() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <div className="relative">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-6 py-3 bg-teal-500 text-slate-950 font-bold rounded hover:bg-teal-400 transition"
-      >
-        Contact Me
-        <ChevronDown
-          size={18}
-          className={`transition-transform duration-200 ${
-            isOpen ? 'rotate-180' : ''
-          }`}
-        />
-      </button>
-
-      {isOpen && (
-        <>
-          <div
-            className="fixed inset-0 z-40 cursor-default"
-            onClick={() => setIsOpen(false)}
-          ></div>
-
-          <div className="absolute top-full left-0 mt-2 w-72 bg-slate-900 border border-slate-700 rounded-lg shadow-xl z-50 p-2 flex flex-col gap-1">
-            <a
-              href={`mailto:${profile.email}`}
-              className="flex items-center gap-3 p-3 text-slate-300 hover:bg-slate-800 hover:text-teal-400 rounded transition group"
-            >
-              <div className="p-2 bg-slate-800 rounded group-hover:bg-slate-700 text-teal-500">
-                <Mail size={18} />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-xs text-slate-500 uppercase font-bold tracking-wider">
-                  Email
-                </span>
-                <span className="text-sm font-medium">{profile.email}</span>
-              </div>
-            </a>
-
-            <a
-              href={`tel:${profile.phone.replace(/\s/g, '')}`}
-              className="flex items-center gap-3 p-3 text-slate-300 hover:bg-slate-800 hover:text-teal-400 rounded transition group"
-            >
-              <div className="p-2 bg-slate-800 rounded group-hover:bg-slate-700 text-teal-500">
-                <Phone size={18} />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-xs text-slate-500 uppercase font-bold tracking-wider">
-                  Phone
-                </span>
-                <span className="text-sm font-medium">{profile.phone}</span>
-              </div>
-            </a>
-          </div>
-        </>
-      )}
-    </div>
-  );
+// 1. Define Props with params as a Promise (Required for Next.js 15+)
+interface Props {
+  params: Promise<{
+    id: string;
+  }>;
 }
 
-type ProjectPageProps = {
-  params: { id: string };
-};
-
-export default function ProjectPage({ params }: ProjectPageProps) {
-  const project = projects.find((p) => p.id === params.id);
+export default async function ProjectPage({ params }: Props) {
+  // 2. Await the params
+  const resolvedParams = await params;
+  const project = projects.find((p) => p.id === resolvedParams.id);
 
   if (!project) {
-    notFound();
+    return notFound();
   }
 
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-200 selection:bg-teal-500 selection:text-teal-900">
-      <div className="max-w-5xl mx-auto px-6 py-12 md:py-20 space-y-16">
-        {/* Back link */}
-        <Link
-          href="/"
-          className="inline-flex items-center text-sm text-slate-400 hover:text-teal-400 transition mb-4"
-        >
-          ← Back to projects
+    <main className="min-h-screen bg-slate-950 text-slate-200 py-12 md:py-20">
+      <div className="max-w-3xl mx-auto px-6">
+        <Link href="/" className="inline-flex items-center text-teal-400 hover:text-teal-300 mb-8 transition">
+          <ArrowLeft size={16} className="mr-2" /> Back to Portfolio
         </Link>
 
-        {/* Project header */}
-        <header className="grid md:grid-cols-2 gap-8 items-center">
-          <div>
-            <p className="text-sm uppercase tracking-wide text-teal-400 mb-2">
-              {project.client}
-            </p>
-            <h1 className="text-3xl md:text-4xl font-bold text-slate-100 mb-4">
-              {project.title}
-            </h1>
-            <p className="text-slate-400 text-lg mb-6">{project.tagline}</p>
+        <h1 className="text-4xl md:text-5xl font-bold text-slate-100 mb-4">{project.title}</h1>
+        <p className="text-xl text-slate-400 mb-8">{project.client}</p>
 
-            <div className="flex flex-wrap gap-2 mb-4">
-              {project.tech.map((t) => (
-                <span
-                  key={t}
-                  className="text-xs px-3 py-1 bg-slate-800 text-teal-300 rounded-full"
-                >
-                  {t}
-                </span>
-              ))}
-            </div>
-
-            <div className="flex flex-wrap gap-4">
-              <ContactDropdown />
-              <a
-                href="/resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-6 py-3 border border-slate-700 text-slate-300 rounded hover:border-teal-500 hover:text-teal-400 transition flex items-center gap-2"
-              >
-                View Resume
-                <ExternalLink size={16} />
-              </a>
-            </div>
-          </div>
-
-          <div className="flex justify-center md:justify-end">
-            <div className="relative w-48 h-48 md:w-72 md:h-72 rounded-full overflow-hidden border-4 border-teal-500/20 shadow-2xl">
-              <Image
-                src="/profile.JPG"
-                alt={profile.name}
-                fill
-                className="object-cover"
-                priority
-              />
-            </div>
-          </div>
-        </header>
+        {/* Tech Stack */}
+        <div className="flex flex-wrap gap-2 mb-12">
+          {project.tech.map((t) => (
+            <span key={t} className="px-3 py-1 bg-teal-900/30 border border-teal-900 text-teal-300 rounded-full text-sm">
+              {t}
+            </span>
+          ))}
+        </div>
 
         {/* Details */}
-        <section className="grid md:grid-cols-3 gap-8">
-          <div className="md:col-span-2 space-y-4">
-            <h2 className="text-xl font-semibold text-slate-100">
-              Challenge
-            </h2>
-            <p className="text-slate-400 leading-relaxed">{project.challenge}</p>
-
-            <h2 className="text-xl font-semibold text-slate-100 mt-6">
-              Solution
-            </h2>
-            <p className="text-slate-400 leading-relaxed">{project.solution}</p>
-
-            <h2 className="text-xl font-semibold text-slate-100 mt-6">Impact</h2>
-            <p className="text-slate-400 leading-relaxed">{project.impact}</p>
+        <div className="bg-slate-900/50 rounded-xl p-8 border border-slate-800 space-y-8">
+          <div>
+            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-500 mb-2">The Challenge</h3>
+            <p className="text-slate-300 leading-relaxed">{project.challenge}</p>
+          </div>
+          <div>
+            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-500 mb-2">The Solution</h3>
+            <p className="text-slate-300 leading-relaxed">{project.solution}</p>
+          </div>
+          <div>
+            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-500 mb-2">The Impact</h3>
+            <p className="text-slate-300 leading-relaxed">{project.impact}</p>
           </div>
 
-          <aside className="space-y-4">
-            <div className="p-4 border border-slate-800 rounded-lg bg-slate-900/40">
-              <div className="flex items-center gap-2 mb-2">
-                <Shield className="text-teal-400" size={20} />
-                <h3 className="text-sm font-semibold text-slate-100">
-                  Client Reference
-                </h3>
-              </div>
-              <p className="text-sm text-slate-300 font-medium">
-                {project.reference.name}
-              </p>
-              <p className="text-xs text-slate-400">{project.reference.contact}</p>
+          {/* Reference */}
+          {project.reference && (
+            <div className="border-t border-slate-700 pt-8 mt-8">
+               <h3 className="text-sm font-bold uppercase tracking-wider text-teal-500 mb-4">Verification</h3>
+               <div className="flex items-start gap-4 bg-slate-950 p-4 rounded-lg border border-slate-800">
+                  <div className="bg-slate-800 p-3 rounded-full">
+                    <User className="text-slate-300" size={24} />
+                  </div>
+                  <div>
+                    <p className="font-bold text-slate-100 text-lg">{project.reference.name}</p>
+                    <div className="text-slate-400 text-sm mt-1">
+                       <span className="text-teal-400 font-mono">{project.reference.contact}</span>
+                    </div>
+                  </div>
+               </div>
             </div>
-
-            <div className="p-4 border border-slate-800 rounded-lg bg-slate-900/40 flex items-center gap-3">
-              <CheckCircle className="text-teal-400" size={20} />
-              <span className="text-sm text-slate-300">
-                Project delivered by {profile.name}, {profile.title}.
-              </span>
-            </div>
-          </aside>
-        </section>
+          )}
+        </div>
       </div>
     </main>
   );
-}     
+}
+
+// 3. Generate static paths for faster loading
+export async function generateStaticParams() {
+  return projects.map((project) => ({
+    id: project.id,
+  }));
+}
