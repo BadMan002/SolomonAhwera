@@ -108,7 +108,7 @@ export default function Home() {
           <div className="order-1 md:order-2 flex justify-center md:justify-end">
             <div className="relative w-48 h-48 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-teal-500/20 shadow-2xl">
               <Image
-                src="/profile.jpg"
+                src="/profile.JPG"
                 alt={profile.name}
                 fill
                 className="object-cover"
