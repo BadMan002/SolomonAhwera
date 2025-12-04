@@ -32,11 +32,11 @@ export const profile = {
     },
     {
       name: "Certified ESET Inspect Optimization Specialist",
-      badge: "/ESET-Logo.wine.png"
+      badge: "/ESET-Logo.png"
     },
     {
       name: "Certified ESET Managed Cloud Security Specialist v2",
-      badge: "/ESET-Logo.wine.png"
+      badge: "/ESET-Logo.png"
     },
     {
       name: "Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate",

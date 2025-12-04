@@ -74,6 +74,8 @@ export default function Home() {
         
         {/* Header / Hero */}
         <header className="grid md:grid-cols-2 gap-8 items-center mb-16">
+          
+          {/* Left Column: Text & Buttons */}
           <div className="order-2 md:order-1">
             <h1 className="text-4xl md:text-6xl font-bold text-slate-100 tracking-tight mb-4">
               {profile.name}
@@ -85,8 +87,10 @@ export default function Home() {
               {profile.about}
             </p>
 
+            {/* Action Buttons Area */}
             <div className="flex flex-wrap gap-4 relative z-10">
               <ContactDropdown />
+              
               <a 
                 href="/resume.pdf" 
                 target="_blank" 
@@ -99,6 +103,8 @@ export default function Home() {
             </div>
           </div>
 
+          {/* Right Column: Profile Image */}
+          {/* On mobile (default), it's order-1 (top). On desktop (md:), it's order-2 (right). */}
           <div className="order-1 md:order-2 flex justify-center md:justify-end">
             <div className="relative w-48 h-48 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-teal-500/20 shadow-2xl">
               <Image
@@ -110,6 +116,7 @@ export default function Home() {
               />
             </div>
           </div>
+
         </header>
 
         {/* Experience Section */}
