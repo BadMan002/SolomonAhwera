@@ -51,12 +51,7 @@ export const profile = {
       period: "April 2022 — Present",
       description: "Deploying and configuring firewalls, EDRs, and vulnerability scanners. Implementing secure network architectures for clients like Pride Bank and UCAA."
     },
-    {
-      company: "Nakasero Hospital",
-      role: "Network Security Engineer (Project)",
-      period: "Project Based", 
-      description: "Deployed FortiGate 600E Firewall and FortiAnalyzer for advanced threat protection, logging, and network traffic analysis to ensure patient data security."
-    },
+   
     {
       company: "Crystal Clear Software LTD",
       role: "End User Support & Training Engineer",
