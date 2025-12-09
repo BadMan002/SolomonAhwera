@@ -85,8 +85,8 @@ export const profile = {
       impact: "Ensured uninterrupted security operations and provided a resilient, redundant security perimeter.",
       tech: ["Check Point NGFW", "High Availability", "Network Security"],
       reference: {
-        name: "Mr. Exavier Rukera",
-        contact: "rukeraexavier@gmail.com | +256 785 179 968"
+        name: "Mrs. Flavia Asiimwe",
+        contact: "flavia.asiimwe@mcb.co.ug | +256 780 306 803"
       }
     },
     {
